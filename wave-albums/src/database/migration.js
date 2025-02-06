@@ -236,11 +236,11 @@ const albums = [
 db.exec(`
   CREATE TABLE IF NOT EXISTS albums (
     albumId TEXT PRIMARY KEY,
-    title TEXT NOT NULL,
+    title   TEXT NOT NULL,
     artists TEXT NOT NULL,
-    genres TEXT NOT NULL,
-    images TEXT NOT NULL,
-    songs TEXT NOT NULL
+    genres  TEXT NOT NULL,
+    images  TEXT NOT NULL,
+    songs   TEXT NOT NULL
   );
   `
 );

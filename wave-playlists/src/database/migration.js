@@ -34,9 +34,9 @@ const playlists = [
 db.exec(`
   CREATE TABLE IF NOT EXISTS playlists (
     playlistId TEXT PRIMARY KEY,
-    title TEXT NOT NULL,
-    image TEXT NOT NULL,
-    songs TEXT NOT NULL
+    title      TEXT NOT NULL,
+    image      TEXT NOT NULL,
+    songs      TEXT NOT NULL
   );
   `
 );
