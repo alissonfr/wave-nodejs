@@ -120,3 +120,5 @@ asyncapi.json
 materaCallback.js
 fiduciaCallback.js
 nfeioCallback.js
+
+albums.db

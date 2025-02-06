@@ -1,0 +1,13 @@
+services:
+  wave-albums:
+    build:
+      context: ./wave-albums
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+  wave-playlists:
+    build:
+      context: ./wave-playlists
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
