@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import albumService from "../services/albumService.js";
 import db from "../database/db.js";
 
-// Mock do banco de dados
 vi.mock("../database/db.js", () => {
   const mockDb = {
     prepare: vi.fn(),
