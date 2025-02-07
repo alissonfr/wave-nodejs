@@ -1,58 +1,40 @@
 import { Router } from "express";
-import db from "../database/db.js";
+import albumService from "../services/albumService.js";
 
 const router = Router();
 
+router.get("/trending-albums", (req, res) => {
+  res.json(albumService.getTrendingAlbums(req.query.genreId));
+});
+
+router.get("/trending-genres", (req, res) => {
+  res.json(albumService.getTrendingGenres());
+});
+
+router.get("/songs", (req, res) => {
+  res.json(albumService.getSongs(req.query.title, req.query.limit, req.query.page));
+});
+
 router.get("/", (req, res) => {
-  const albums = db.prepare("SELECT * FROM albums").all();
-  res.json(albums.map((album) => ({
-    ...album,
-    artists: JSON.parse(album.artists), 
-    genres: JSON.parse(album.genres), 
-    images: JSON.parse(album.images), 
-    songs: JSON.parse(album.songs) 
-  })));
+  res.json(albumService.getAllAlbums(req.query.genreId));
 });
 
 router.get("/:albumId", (req, res) => {
-  const { albumId } = req.params;
-  const album = db.prepare("SELECT * FROM albums WHERE albumId = ?").get(albumId);
-
-  if(!album) res.status(404).json({ message: "Álbum não encontrado" });
-
-  res.json({
-    ...album,
-    artists: JSON.parse(album.artists), 
-    genres: JSON.parse(album.genres), 
-    images: JSON.parse(album.images), 
-    songs: JSON.parse(album.songs) 
-  });
+  const album = albumService.getAlbumById(req.params.albumId);
+  if (!album) return res.status(404).json({ message: "Álbum não encontrado" });
+  res.json(album);
 });
 
 router.post("/", (req, res) => {
-  const { albumId, title, artists, genres, images, songs } = req.body;
-  db.prepare("INSERT INTO albums (albumId, title, artists, genres, images, songs) VALUES (?, ?, ?, ?, ?, ?)")
-  .run(albumId, title, artists, genres, images, songs);
-  res.status(201).json({ message: "Álbum criado com sucesso" });
+  res.status(201).json(albumService.createAlbum(req.body));
 });
 
 router.put("/:albumId", (req, res) => {
-  const { title, artists, genres, images, songs } = req.body;
-  const { albumId } = req.params;
-  db.prepare(`
-    UPDATE albums SET  
-    title = ?, artists = ?, genres = ?, images = ?, songs = ?
-    WHERE albumId = ?
-    
-  `)
-  .run(title, artists, genres, images, songs, albumId);
-  res.json({ message: "Álbum atualizado" });
+  res.json(albumService.updateAlbum(req.params.albumId, req.body));
 });
 
 router.delete("/:albumId", (req, res) => {
-  const { albumId } = req.params;
-  db.prepare("DELETE FROM albums WHERE albumId = ?").run(albumId);
-  res.json({ message: "Álbum deletado" });
+  res.json(albumService.deleteAlbum(req.params.albumId));
 });
 
 export default router;

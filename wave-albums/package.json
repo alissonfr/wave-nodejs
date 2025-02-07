@@ -8,7 +8,7 @@
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
     "migrate": "node src/database/migration.js",
-    "test": "node --experimental-vm-modules node_modules/.bin/jest"
+    "test": "npx vitest"
   },
   "keywords": [],
   "author": "",
@@ -16,14 +16,11 @@
   "dependencies": {
     "@types/better-sqlite3": "^7.6.12",
     "better-sqlite3": "^11.8.1",
-    "express": "^4.21.2",
-    "uuid": "^11.0.5"
+    "express": "^4.21.2"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
-    "jest": "^29.7.0",
     "nodemon": "^3.1.9",
-    "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }
