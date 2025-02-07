@@ -10,4 +10,4 @@ COPY . .
 RUN npm run migrate
 RUN npm run test
 CMD ["npm", "start"]
-EXPOSE 3000
+EXPOSE 3001
