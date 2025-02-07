@@ -18,7 +18,8 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:playlistId", (req, res) => {
-  res.json(playlistService.updatePlaylist(req.params.playlistId, req.body));
+  playlistService.updatePlaylist(req.params.playlistId, req.body)
+  res.json(playlistService.getPlaylistById(req.params.playlistId));
 });
 
 router.delete("/:playlistId", (req, res) => {
